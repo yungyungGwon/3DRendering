@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1790588356703,
+  "projectRoot": "/Users/gwon-yungyeong/Documents/3DRendering/ARRender",
+  "techStack": {
+    "languages": [
+      {
+        "name": "Java/Kotlin",
+        "version": null,
+        "confidence": "high",
+        "markers": [
+          "build.gradle"
+        ]
+      }
+    ],
+    "frameworks": [],
+    "packageManager": "gradle",
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [
+      "app"
+    ],
+    "gitBranches": null
+  },
+  "customNotes": [],
+  "directoryMap": {
+    "app": {
+      "path": "app",
+      "purpose": "Application code",
+      "fileCount": 3,
+      "lastAccessed": 1790588356690,
+      "keyFiles": [
+        "build.gradle",
+        "proguard-rules.pro"
+      ]
+    },
+    "build": {
+      "path": "build",
+      "purpose": "Build output",
+      "fileCount": 0,
+      "lastAccessed": 1790588356691,
+      "keyFiles": []
+    },
+    "gradle": {
+      "path": "gradle",
+      "purpose": null,
+      "fileCount": 0,
+      "lastAccessed": 1790588356691,
+      "keyFiles": []
+    },
+    "app/build": {
+      "path": "app/build",
+      "purpose": "Build output",
+      "fileCount": 0,
+      "lastAccessed": 1790588356692,
+      "keyFiles": []
+    },
+    "app/src": {
+      "path": "app/src",
+      "purpose": "Source code",
+      "fileCount": 0,
+      "lastAccessed": 1790588356692,
+      "keyFiles": []
+    }
+  },
+  "hotPaths": [
+    {
+      "path": "app/src/main/java/com/example/arrender/CameraModule.java",
+      "accessCount": 6,
+      "lastAccessed": 1790849898344,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/java/com/example/arrender/MainActivity.kt",
+      "accessCount": 6,
+      "lastAccessed": 1790851630602,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/java/com/example/arrender/RenderView.java",
+      "accessCount": 6,
+      "lastAccessed": 1790853293275,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/java/com/example/arrender/BackgroundRenderable.java",
+      "accessCount": 5,
+      "lastAccessed": 1790849898892,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/res/layout/activity_main.xml",
+      "accessCount": 2,
+      "lastAccessed": 1790849210903,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/AndroidManifest.xml",
+      "accessCount": 2,
+      "lastAccessed": 1790849211738,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/java/com/example/arrender/SurfaceManager.java",
+      "accessCount": 1,
+      "lastAccessed": 1790588501881,
+      "type": "file"
+    }
+  ],
+  "userDirectives": []
+}

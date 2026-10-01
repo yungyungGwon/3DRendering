@@ -2,34 +2,56 @@ package com.example.arrender
 
 import android.Manifest
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.arrender.databinding.ActivityMainBinding
 
+/**
+ * This class is main activity and gl renderer
+ */
 class MainActivity : AppCompatActivity() {
-    private val PERMISSION_REQUEST_CAMERA = 1000
-    private lateinit var mCameraModule: CameraModule
+    private val PERMISSION_REQUEST_CAMERA = 1000        // Camera permission request code
+    private lateinit var binding: ActivityMainBinding   // View binding
+    private lateinit var cameraModule: CameraModule     // Camera module
 
+    /**
+     * Called when the activity is created.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        mCameraModule = CameraModule(this);
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        cameraModule = CameraModule(this)
+        binding.renderView.setOnSurfaceReadyListener { surface ->
+            cameraModule.setSurface(surface)
+            cameraModule.startCamera()
+        }
     }
 
+    /**
+     * Called when the activity is resumed.
+     */
     override fun onResume() {
         super.onResume()
-        // 권한 확인 후 카메라 시작
         if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            mCameraModule.startCamera()
+            cameraModule.startCamera()
         } else {
             requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CAMERA)
         }
     }
 
+    /**
+     * Called when the activity is paused.
+     */
     override fun onPause() {
         super.onPause()
     }
 
+    /**
+     * Called when the permission request result is returned.
+     */
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -38,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CAMERA) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mCameraModule.startCamera()
+                cameraModule.startCamera()
             } else {
                 Toast.makeText(this, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show()
             }

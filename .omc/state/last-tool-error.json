@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"ls /Users/gwon-yungyeong/.claude/projects/-Users-gwon-yungyeong-Documents-3DRendering-ARRender/memory/ 2>/dev/null; echo \\\"---\\\"; cat /Users/gwon-yungyeong/.claude/projects/-Users-gwon-yun...",
+  "error": "Exit code 1\n---",
+  "timestamp": "2026-10-01T11:16:39.091Z",
+  "retry_count": 1
+}
