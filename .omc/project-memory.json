@@ -81,15 +81,15 @@
   },
   "hotPaths": [
     {
-      "path": "app/src/main/java/com/example/arrender/CameraModule.java",
-      "accessCount": 6,
-      "lastAccessed": 1790849898344,
+      "path": "app/src/main/java/com/example/arrender/MainActivity.kt",
+      "accessCount": 8,
+      "lastAccessed": 1791008270484,
       "type": "file"
     },
     {
-      "path": "app/src/main/java/com/example/arrender/MainActivity.kt",
-      "accessCount": 6,
-      "lastAccessed": 1790851630602,
+      "path": "app/src/main/java/com/example/arrender/CameraModule.java",
+      "accessCount": 8,
+      "lastAccessed": 1791009402097,
       "type": "file"
     },
     {

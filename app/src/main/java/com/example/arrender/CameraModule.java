@@ -13,6 +13,7 @@ import android.hardware.camera2.params.OutputConfiguration;
 import android.hardware.camera2.params.SessionConfiguration;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Log;
 import android.util.Range;
 import android.view.Surface;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ import java.util.concurrent.Executor;
  * Manages Camera operations.
  */
 public class CameraModule {
+    private String TAG = "CameraModule";
     private final Context appContext;
     private final CameraManager cameraManager;
 
@@ -39,6 +41,7 @@ public class CameraModule {
     private boolean isFrontCamera = false;
     private CameraCaptureSession cameraCaptureSession;
     private Surface mSurface;
+    private boolean isRequested = false;
 
     /**
      * Initializes the camera module.
@@ -55,34 +58,43 @@ public class CameraModule {
      */
     public void startCamera() {
         if(mSurface == null) return ;
-        try {
-            startBackgroundThread();
 
+        try {
+            // Get camera ID
             int facing = isFrontCamera ?
                     CameraCharacteristics.LENS_FACING_FRONT :
                     CameraCharacteristics.LENS_FACING_BACK;
 
-            this.cameraId = getCameraId(facing);
+            cameraId = getCameraId(facing);
 
             if(cameraId == null) return;
             CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(cameraId);
             Range<Integer>[] fpsRange = characteristics.get(CameraCharacteristics.CONTROL_AE_AVAILABLE_TARGET_FPS_RANGES);
 
+            // Get fps range from camera characteristics
             if(fpsRange == null) return;
             frameFPS = fpsRange[fpsRange.length - 1];
-            focalDistance = characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE) * 0.15f;
+            Float minFocusDistance = characteristics.get(CameraCharacteristics.LENS_INFO_MINIMUM_FOCUS_DISTANCE);
+            // Consider a legacy hw level
+            // If we have a low level device, we can not control detail focal config
+            focalDistance = (minFocusDistance != null ? minFocusDistance : 0f) * 0.15f;
 
-            if (this.cameraId != null) {
-                try {
-                    if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                        Toast.makeText(this.appContext, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
-                    cameraManager.openCamera(this.cameraId, stateCallback, backgroundHandler);
-                } catch (CameraAccessException e) {
-                    e.printStackTrace();
+            // Check the camera permission
+            if (ActivityCompat.checkSelfPermission(appContext, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                if(!isRequested) {
+                    Toast.makeText(appContext, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show();
+                    Log.w(TAG, "카메라 사용을 위해 접근 권한 허용이 필요합니다.");
+                    isRequested = true;
                 }
+                return;
             }
+
+            // Open the camera
+            cameraManager.openCamera(cameraId, stateCallback, backgroundHandler);
+
+            // Start background thread
+            startBackgroundThread();
+
         } catch (Exception e) {
             e.printStackTrace();
         }

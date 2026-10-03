@@ -3,6 +3,7 @@ package com.example.arrender
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.arrender.databinding.ActivityMainBinding
@@ -11,7 +12,9 @@ import com.example.arrender.databinding.ActivityMainBinding
  * This class is main activity and gl renderer
  */
 class MainActivity : AppCompatActivity() {
+    private val TAG = "MainActivity"                    // Log label
     private val PERMISSION_REQUEST_CAMERA = 1000        // Camera permission request code
+    private var isRequested = false                     // Notice toast message just once
     private lateinit var binding: ActivityMainBinding   // View binding
     private lateinit var cameraModule: CameraModule     // Camera module
 
@@ -62,7 +65,11 @@ class MainActivity : AppCompatActivity() {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 cameraModule.startCamera()
             } else {
-                Toast.makeText(this, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show()
+                if(!isRequested) {
+                    Toast.makeText(this, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show()
+                    Log.w(TAG, "카메라 사용을 위해 접근 권한 허용이 필요합니다.");
+                    isRequested = true
+                }
             }
         }
     }
