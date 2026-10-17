@@ -27,7 +27,7 @@ import java.util.concurrent.Executor;
 /**
  * Manages Camera operations.
  */
-public class CameraModule {
+public class CameraController {
     private String TAG = "CameraModule";
     private final Context appContext;
     private final CameraManager cameraManager;
@@ -48,7 +48,7 @@ public class CameraModule {
      *
      * @param context application context
      */
-    public CameraModule (Context context) {
+    public CameraController(Context context) {
         this.appContext = context;
         this.cameraManager = (CameraManager) appContext.getSystemService(Context.CAMERA_SERVICE);
     }
@@ -220,8 +220,8 @@ public class CameraModule {
      * Starts the background thread for camera operations.
      */
     private void startBackgroundThread() {
-        backgroundThread = new HandlerThread("CameraModuleThread");
-        backgroundThread.start();
-        backgroundHandler = new Handler(backgroundThread.getLooper());
+//        backgroundThread = new HandlerThread("CameraModuleThread");
+//        backgroundThread.start();
+//        backgroundHandler = new Handler(backgroundThread.getLooper());
     }
 }

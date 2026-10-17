@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1790588356703,
+  "lastScanned": 1791015036566,
   "projectRoot": "/Users/gwon-yungyeong/Documents/3DRendering/ARRender",
   "techStack": {
     "languages": [
@@ -44,7 +44,7 @@
       "path": "app",
       "purpose": "Application code",
       "fileCount": 3,
-      "lastAccessed": 1790588356690,
+      "lastAccessed": 1791015036559,
       "keyFiles": [
         "build.gradle",
         "proguard-rules.pro"
@@ -54,54 +54,60 @@
       "path": "build",
       "purpose": "Build output",
       "fileCount": 0,
-      "lastAccessed": 1790588356691,
+      "lastAccessed": 1791015036559,
       "keyFiles": []
     },
     "gradle": {
       "path": "gradle",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1790588356691,
+      "lastAccessed": 1791015036560,
       "keyFiles": []
     },
     "app/build": {
       "path": "app/build",
       "purpose": "Build output",
       "fileCount": 0,
-      "lastAccessed": 1790588356692,
+      "lastAccessed": 1791015036560,
       "keyFiles": []
     },
     "app/src": {
       "path": "app/src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1790588356692,
+      "lastAccessed": 1791015036560,
       "keyFiles": []
     }
   },
   "hotPaths": [
     {
+      "path": "app/src/main/java/com/example/arrender/BackgroundRenderable.java",
+      "accessCount": 17,
+      "lastAccessed": 1792230500408,
+      "type": "file"
+    },
+    {
       "path": "app/src/main/java/com/example/arrender/MainActivity.kt",
-      "accessCount": 8,
-      "lastAccessed": 1791008270484,
+      "accessCount": 11,
+      "lastAccessed": 1791100323879,
       "type": "file"
     },
     {
       "path": "app/src/main/java/com/example/arrender/CameraModule.java",
-      "accessCount": 8,
-      "lastAccessed": 1791009402097,
+      "accessCount": 11,
+      "lastAccessed": 1791100324557,
       "type": "file"
     },
     {
       "path": "app/src/main/java/com/example/arrender/RenderView.java",
-      "accessCount": 6,
-      "lastAccessed": 1790853293275,
+      "accessCount": 11,
+      "lastAccessed": 1791105661652,
       "type": "file"
     },
     {
-      "path": "app/src/main/java/com/example/arrender/BackgroundRenderable.java",
-      "accessCount": 5,
-      "lastAccessed": 1790849898892,
+      "path": "app/src/main/java/com/example/arrender/ShaderManager.java",
+      "accessCount": 6,
+      "lastAccessed": 1792227584379,
       "type": "file"
     },
     {

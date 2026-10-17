@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     private val PERMISSION_REQUEST_CAMERA = 1000        // Camera permission request code
     private var isRequested = false                     // Notice toast message just once
     private lateinit var binding: ActivityMainBinding   // View binding
-    private lateinit var cameraModule: CameraModule     // Camera module
 
     /**
      * Called when the activity is created.
@@ -25,12 +24,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        cameraModule = CameraModule(this)
-        binding.renderView.setOnSurfaceReadyListener { surface ->
-            cameraModule.setSurface(surface)
-            cameraModule.startCamera()
-        }
     }
 
     /**
@@ -38,11 +31,8 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onResume() {
         super.onResume()
-        if (checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
-            cameraModule.startCamera()
-        } else {
+        if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CAMERA)
-        }
     }
 
     /**
@@ -62,14 +52,12 @@ class MainActivity : AppCompatActivity() {
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == PERMISSION_REQUEST_CAMERA) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                cameraModule.startCamera()
-            } else {
-                if(!isRequested) {
-                    Toast.makeText(this, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show()
-                    Log.w(TAG, "카메라 사용을 위해 접근 권한 허용이 필요합니다.");
-                    isRequested = true
-                }
+            if (grantResults.isNotEmpty() && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                if(isRequested) return
+
+                isRequested = true
+                Toast.makeText(this, "카메라 사용을 위해 접근 권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show()
+                Log.w(TAG, "카메라 사용을 위해 접근 권한 허용이 필요합니다.");
             }
         }
     }
