@@ -3,9 +3,12 @@ package com.example.arrender;
 import android.graphics.SurfaceTexture;
 import android.opengl.GLES11Ext;
 import android.opengl.GLES32;
+import android.opengl.Matrix;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+
+import javax.microedition.khronos.opengles.GL;
 
 /**
  * Manages the SurfaceTexture and Surface used for background rendering.
@@ -16,6 +19,8 @@ public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableList
 
     static final int textureWidth = 960;
     static final int textureHeight = 720;
+
+    public float screenRotation = 0.0f;
 
     /**
      * Initializes the OpenGL texture used by the SurfaceTexture.
@@ -104,7 +109,12 @@ public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableList
         GLES32.glEnableVertexAttribArray(textureAttribute);
         GLES32.glVertexAttribPointer(textureAttribute, 2, GLES32.GL_FLOAT, false, 2 * Float.BYTES, 12 * Float.BYTES);
 
+        // Rotation
+        float[] rotationMatrix = new float[16];
+        Matrix.setIdentityM(rotationMatrix, 0);
+        Matrix.rotateM(rotationMatrix, 0, screenRotation, 0.0f, 0.0f, 1.0f);
         shaderManager.use();
+        GLES32.glUniformMatrix4fv(GLES32.glGetUniformLocation(shaderManager.ID, "screenRotation"), 1, false, rotationMatrix, 0);
         GLES32.glBindVertexArray(0);
     }
 
@@ -135,6 +145,10 @@ public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableList
         }
 
         return surfaceTexture;
+    }
+
+    public void applyScreenRotation(float rotation) {
+        screenRotation = rotation;
     }
 
     /**
@@ -175,11 +189,12 @@ public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableList
     String vertexShaderCode = "#version 300 es\n" +
             "layout (location = 0) in vec3 aPos;\n" +
             "layout (location = 1) in vec2 aTexCoord;\n" +
+            "uniform mat4 screenRotation;\n" +
             "out vec2 TexCoord;\n" +
             "void main()\n" +
             "{\n" +
             "   TexCoord = aTexCoord;\n" +
-            "   gl_Position = vec4(aPos, 1.0);\n" +
+            "   gl_Position = screenRotation * vec4(aPos, 1.0);\n" +
             "}";
     String fragmentShaderCode = "#version 300 es\n" +
             "#extension GL_OES_EGL_image_external_essl3 : require\n" +

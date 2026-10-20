@@ -32,6 +32,17 @@ public class RenderView extends GLSurfaceView implements GLSurfaceView.Renderer 
         getHolder().addCallback(this);
         setRenderer(this);
         cameraModule = new CameraController(context);
+
+        float angle = switch (context.getDisplay().getRotation()) {
+            case Surface.ROTATION_0 -> -90.0f;
+            case Surface.ROTATION_90 -> 0.0f;
+            case Surface.ROTATION_180 -> 90.0f;
+            case Surface.ROTATION_270 -> 180.0f;
+            default -> 0.0f;
+        };
+
+        backgroundRenderable.applyScreenRotation(angle);
+
     }
 
     /**
