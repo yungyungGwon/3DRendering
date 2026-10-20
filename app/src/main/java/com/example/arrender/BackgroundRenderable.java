@@ -10,6 +10,8 @@ import java.nio.IntBuffer;
 /**
  * Manages the SurfaceTexture and Surface used for background rendering.
  */
+
+// Todo: This class need to reflect rotation matrix. Currently we used to default rotation matrix
 public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableListener {
 
     static final int textureWidth = 960;
@@ -108,31 +110,6 @@ public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableList
 
     /**
      *
-     */
-    public void render() {
-        if(mTextureID == 0) return;
-
-        if(surfaceTexture != null) {
-            surfaceTexture.updateTexImage();
-        }
-
-        // GL_TEXTURE0 is for activity
-        // So never ever input the mTextureID of background renderable
-        GLES32.glActiveTexture(GLES32.GL_TEXTURE0);
-        shaderManager.use();
-        GLES32.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, mTextureID);
-
-        // Bind vertex array to opengl es
-        GLES32.glBindVertexArray(mVAO);
-        // GL_TRIANGLE_STRIP 는 처음 2개 정점 이후, 새 정점 하나가 들어올 때마다 직전 2개와 묶여 삼각형을 만듦
-        //  -> 변을 공유하는 "띠" 형태라 인덱스/정점 수를 아낄 수 있음
-        GLES32.glDrawElements(GLES32.GL_TRIANGLES, mAmountOfIndices, GLES32.GL_UNSIGNED_INT, 0);
-        GLES32.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, mTextureID);
-        GLES32.glBindVertexArray(0);
-    }
-
-    /**
-     *
      * @param surfaceTexture
      */
     @Override
@@ -158,6 +135,41 @@ public class BackgroundRenderable implements SurfaceTexture.OnFrameAvailableList
         }
 
         return surfaceTexture;
+    }
+
+    /**
+     * Free all buffers and puts surfaceTexture into the abandoned state
+     */
+    public void release() {
+        if(surfaceTexture!= null && surfaceTexture.isReleased())
+            surfaceTexture.release();
+        if(mTextureID != 0)
+            GLES32.glDeleteTextures(1, new int[]{mTextureID}, 0);
+    }
+
+    /**
+     *
+     */
+    public void render() {
+        if(mTextureID == 0) return;
+
+        if(surfaceTexture != null) {
+            surfaceTexture.updateTexImage();
+        }
+
+        // GL_TEXTURE0 is for activity
+        // So never ever input the mTextureID of background renderable
+        GLES32.glActiveTexture(GLES32.GL_TEXTURE0);
+        shaderManager.use();
+        GLES32.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, mTextureID);
+
+        // Bind vertex array to opengl es
+        GLES32.glBindVertexArray(mVAO);
+        // GL_TRIANGLE_STRIP 는 처음 2개 정점 이후, 새 정점 하나가 들어올 때마다 직전 2개와 묶여 삼각형을 만듦
+        //  -> 변을 공유하는 "띠" 형태라 인덱스/정점 수를 아낄 수 있음
+        GLES32.glDrawElements(GLES32.GL_TRIANGLES, mAmountOfIndices, GLES32.GL_UNSIGNED_INT, 0);
+        GLES32.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, mTextureID);
+        GLES32.glBindVertexArray(0);
     }
 
     String vertexShaderCode = "#version 300 es\n" +

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "lastScanned": 1791015036566,
+  "lastScanned": 1792397433127,
   "projectRoot": "/Users/gwon-yungyeong/Documents/3DRendering/ARRender",
   "techStack": {
     "languages": [
@@ -44,7 +44,7 @@
       "path": "app",
       "purpose": "Application code",
       "fileCount": 3,
-      "lastAccessed": 1791015036559,
+      "lastAccessed": 1792397433110,
       "keyFiles": [
         "build.gradle",
         "proguard-rules.pro"
@@ -54,54 +54,54 @@
       "path": "build",
       "purpose": "Build output",
       "fileCount": 0,
-      "lastAccessed": 1791015036559,
+      "lastAccessed": 1792397433112,
       "keyFiles": []
     },
     "gradle": {
       "path": "gradle",
       "purpose": null,
       "fileCount": 0,
-      "lastAccessed": 1791015036560,
+      "lastAccessed": 1792397433113,
       "keyFiles": []
     },
     "app/build": {
       "path": "app/build",
       "purpose": "Build output",
       "fileCount": 0,
-      "lastAccessed": 1791015036560,
+      "lastAccessed": 1792397433114,
       "keyFiles": []
     },
     "app/src": {
       "path": "app/src",
       "purpose": "Source code",
       "fileCount": 0,
-      "lastAccessed": 1791015036560,
+      "lastAccessed": 1792397433115,
       "keyFiles": []
     }
   },
   "hotPaths": [
     {
       "path": "app/src/main/java/com/example/arrender/BackgroundRenderable.java",
-      "accessCount": 17,
-      "lastAccessed": 1792230500408,
+      "accessCount": 20,
+      "lastAccessed": 1792404998897,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/java/com/example/arrender/RenderView.java",
+      "accessCount": 13,
+      "lastAccessed": 1792396646206,
       "type": "file"
     },
     {
       "path": "app/src/main/java/com/example/arrender/MainActivity.kt",
-      "accessCount": 11,
-      "lastAccessed": 1791100323879,
+      "accessCount": 13,
+      "lastAccessed": 1792402851607,
       "type": "file"
     },
     {
       "path": "app/src/main/java/com/example/arrender/CameraModule.java",
       "accessCount": 11,
       "lastAccessed": 1791100324557,
-      "type": "file"
-    },
-    {
-      "path": "app/src/main/java/com/example/arrender/RenderView.java",
-      "accessCount": 11,
-      "lastAccessed": 1791105661652,
       "type": "file"
     },
     {
@@ -120,6 +120,12 @@
       "path": "app/src/main/AndroidManifest.xml",
       "accessCount": 2,
       "lastAccessed": 1790849211738,
+      "type": "file"
+    },
+    {
+      "path": "app/src/main/java/com/example/arrender/CameraController.java",
+      "accessCount": 2,
+      "lastAccessed": 1792396645687,
       "type": "file"
     },
     {

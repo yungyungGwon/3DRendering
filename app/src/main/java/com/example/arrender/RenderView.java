@@ -15,7 +15,7 @@ import javax.microedition.khronos.opengles.GL10;
  * Manages RenderView operations
  */
 public class RenderView extends GLSurfaceView implements GLSurfaceView.Renderer {
-    public BackgroundRenderable backgroundRenderable = new BackgroundRenderable();  // Handles background rendering
+    private BackgroundRenderable backgroundRenderable = new BackgroundRenderable();  // Handles background rendering
     private CameraController cameraModule;
 
     public final String TAG = "RenderView";
@@ -65,6 +65,15 @@ public class RenderView extends GLSurfaceView implements GLSurfaceView.Renderer 
     @Override
     public void onDrawFrame(GL10 gl10) {
         backgroundRenderable.render();
+    }
+
+    public void start() {
+        if(!cameraModule.isStarted)
+            cameraModule.startCamera();
+    }
+
+    public void stop() {
+        backgroundRenderable.release();
     }
 }
 

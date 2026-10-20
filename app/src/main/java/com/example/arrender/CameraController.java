@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.concurrent.Executor;
 
 /**
- * Manages Camera operations.
+ * Manages Camera operations
  */
 public class CameraController {
     private String TAG = "CameraModule";
@@ -42,6 +42,7 @@ public class CameraController {
     private CameraCaptureSession cameraCaptureSession;
     private Surface mSurface;
     private boolean isRequested = false;
+    public boolean isStarted = false;
 
     /**
      * Initializes the camera module.
@@ -58,7 +59,6 @@ public class CameraController {
      */
     public void startCamera() {
         if(mSurface == null) return ;
-
         try {
             // Get camera ID
             int facing = isFrontCamera ?
@@ -89,12 +89,11 @@ public class CameraController {
                 return;
             }
 
-            // Open the camera
-            cameraManager.openCamera(cameraId, stateCallback, backgroundHandler);
-
             // Start background thread
             startBackgroundThread();
-
+            // Open the camera
+            cameraManager.openCamera(cameraId, stateCallback, backgroundHandler);
+            isStarted = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -220,8 +219,8 @@ public class CameraController {
      * Starts the background thread for camera operations.
      */
     private void startBackgroundThread() {
-//        backgroundThread = new HandlerThread("CameraModuleThread");
-//        backgroundThread.start();
-//        backgroundHandler = new Handler(backgroundThread.getLooper());
+        backgroundThread = new HandlerThread("CameraModuleThread");
+        backgroundThread.start();
+        backgroundHandler = new Handler(backgroundThread.getLooper());
     }
 }

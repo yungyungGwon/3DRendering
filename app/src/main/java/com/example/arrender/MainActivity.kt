@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
             requestPermissions(arrayOf(Manifest.permission.CAMERA), PERMISSION_REQUEST_CAMERA)
+        else
+            binding.renderView.start()
     }
 
     /**
@@ -40,6 +42,9 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onPause() {
         super.onPause()
+        binding.renderView.queueEvent {
+            binding.renderView.stop()
+        }
     }
 
     /**
